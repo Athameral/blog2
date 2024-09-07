@@ -1,5 +1,5 @@
 ---
-title: ssh_x11_forwarding
+title: 使用服务器上的GUI应用：X11 Forwarding
 date: 2024-09-07 16:34:51
 tags: [SSH, X11]
 ---
