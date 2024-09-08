@@ -17,10 +17,10 @@ mathjax: true
 我们用均值来代表最优估计，且把协方差矩阵写为$\mathbf{P_k}$，即
 
 $$
-\begin{align}
+\begin{equation}\begin{split}
     & \mathbf{\hat{x}_k} = \mathbf{\mu} \\
     & \mathbf{P_k} = \mathbf{\Sigma}
-\end{align} 
+\end{split}\end{equation} 
 $$
 
 假设状态包括当前速度和位置两个标量，输入为加速度，那么应该有状态转移方程
@@ -32,7 +32,7 @@ $$
 其中
 
 $$
-\begin{align}
+\begin{equation}\begin{split}
     x_k &=
     \begin{bmatrix}
         p_k\\
@@ -49,25 +49,27 @@ $$
         \Delta t
     \end{bmatrix} \\
     u &= a
-\end{align}
+\end{split}\end{equation}
 $$
 
 由于
 
 $$
-\begin{align}
+\begin{equation}\begin{split}
     E(Ax) & = AE(x) \\
     \mathrm{cov}(Ax) & = A\mathrm{cov}(x)A^T
-\end{align}
+\end{split}\end{equation}
 $$
 
 有最优估计和协方差矩阵的递推公式
 
 $$
-\begin{align}
-    \mathbf{\hat{x}_{k+1}} &= A\mathbf{\hat{x}_k} + Bu \\
-    \mathbf{P_{k+1}} &= A\mathbf{P_k}A^T
-\end{align}
+\begin{equation}
+    \begin{split}
+        \mathbf{\hat{x}_{k+1}} & = A\mathbf{\hat{x}_k} + Bu \\
+        \mathbf{P_{k+1}} & = A\mathbf{P_k}A^T
+    \end{split}
+\end{equation}
 $$
 
 如果假设每一步状态转移时，环境都会向状态引入一个高斯白噪声（期望为0），假设其与当前状态相互独立，由协方差的性质
@@ -79,36 +81,36 @@ $$
 可得，只需在上式后加一个噪声的协方差矩阵$\mathbf{Q_k}$
 
 $$
-\begin{align}
+\begin{equation}\begin{split}
     \mathbf{P_{k+1}} = A\mathrm{P_k}A^T + \mathbf{Q_k}
-\end{align}
+\end{split}\end{equation}
 $$
 
 现在我们引入观测矩阵。就是说，现实中的物理量经过一个非奇异线性变换（也就是这个观测矩阵），变成了传感器读取到的数据。
 
 $$
-\begin{align}
+\begin{equation}\begin{split}
     \mathbf{y_k} = C\mathbf{x_k}
-\end{align}
+\end{split}\end{equation}
 $$
 
 那么有
 
 $$
-\begin{align}
+\begin{equation}\begin{split}
     \mathbf{\hat{y}_k} &= C \mathbf{\hat{x}_k} \\
     \mathbf{\Sigma _y} &= C\mathbf{P_k}C^T
-\end{align}
+\end{split}\end{equation}
 $$
 
 至此，我们知道了如何从上一时刻观测向量的最优估计状态，推测出这一时刻的最优估计状态：
 
 $$
-\begin{align}
+\begin{equation}\begin{split}
     \mathbf{\hat{y}_k} &= CA\mathbf{\hat{x}_{k-1}} + Bu \\
     &= CAC^{-1}\mathbf{\hat{y}_{k-1}} + Bu \\
     \mathbf{\Sigma _{y_k}} &= CAC^{-1}\mathbf{\Sigma _{y_{k-1}}}(C^{-1})^T A^TC^T
-\end{align}
+\end{split}\end{equation}
 $$
 
 同时，我们可以把从传感器中读到的数据$\mathbf{\hat{z}_k}$看作另一个随机变量的均值，假设这一随机变量也符合高斯分布，且具有协方差矩阵$\mathbf{R_k}$。
@@ -120,22 +122,22 @@ $$
 对于两个独立的服从正态分布的随机变量，其密度函数（Probability Density Function）的乘积是另一个正态分布的密度函数乘以一个缩放因子，即
 
 $$
-\begin{align}
+\begin{equation}\begin{split}
     f(x) &= \frac{1}{\sqrt{2\pi}\sigma _1} e^{-\frac{(x-\mu _1)^2}{2\sigma _1 ^2}} \\
     g(x) &= \frac{1}{\sqrt{2\pi}\sigma _2} e^{-\frac{(x-\mu _2)^2}{2\sigma _2 ^2}} \\
     h(x) &= f(x)\cdot g(x) \\
     &= A \cdot \frac{1}{\sqrt{2\pi}\sigma _0} e^{-\frac{(x-\mu _0)^2}{2\sigma _0 ^2}}
-\end{align}
+\end{split}\end{equation}
 $$
 
 其中
 
 $$
-\begin{align}
+\begin{equation}\begin{split}
     A &= \frac{e^{-\frac{(\mu_1-\mu_2)^2}{2(\sigma_1^2+\sigma_2^2)}}}{\sqrt{2\pi( \sigma_1^2+\sigma_2^2)}} \\
     \mu _0 &= \frac{\mu_1\sigma_2^2+\mu_2\sigma_1^2 }{\sigma_1^{2}+\sigma_2^{2}} \\
     \sigma _0 &= \frac{\sigma_1^2\sigma_2^2}{\sigma_1^2+\sigma_2^2}
-\end{align}
+\end{split}\end{equation}
 $$
 
 > 对多元随机变量也成立，将对应标量替换为矩阵即可。
@@ -143,11 +145,11 @@ $$
 这样，我们就得到了传感器对应的真实数据的最优估计
 
 $$
-\begin{align}
+\begin{equation}\begin{split}
     \mathbf{\hat{y}'_k} &= \mathbf{\hat{y}_k} + \mathbf{K}(\mathbf{\hat{z}_k} - \mathbf{\hat{y}_k}) \\
     \mathbf{\Sigma _{y_k}'} &= \mathbf{KR_k} = \mathbf{\Sigma _{y_k}} -  \mathbf{K \Sigma _{y_k}}\\
     \mathbf{K} &= \mathbf{\Sigma _{y_k}}(\mathbf{\Sigma _{y_k}} + \mathbf{R_k})^{-1}
-\end{align}
+\end{split}\end{equation}
 $$
 
 > $\mathbf{K}$即卡尔曼增益（Kalman Gain）。
@@ -155,16 +157,16 @@ $$
 但通常我们需要获取$\mathbf{\hat{x}'_k}$和$\mathbf{P'_k}$，有
 
 $$
-\begin{align}
+\begin{equation}\begin{split}
     \mathbf{\hat{x}'_k} &= \mathbf{\hat{x}_k} + C^{-1}\mathbf{K}(\mathbf{\hat{z}_k} - C\mathbf{\hat{x}_k}) \\
     \mathbf{P'_k} &= C^{-1}\mathbf{KR_k}(C^{-1})^T \\
     &= \mathbf{P_k}-C^{-1}\mathbf{K}C\mathbf{P_k} \\
     \mathbf{K} &= C\mathbf{P_k}C^T(C\mathbf{P_k}C^T + \mathbf{R_k})^{-1}
-\end{align}
+\end{split}\end{equation}
 $$
 
 用一张图（也抄自[这篇Bzarg的文章][Bzarg.KalmanFilter]）总结一下卡尔曼滤波的过程：
 
-![Kalman Filter Information Flow](./Kalman-Filter/KFInformationFlow.png)
+![Kalman Filter Information Flow](KFInformationFlow.png)
 
 [Bzarg.KalmanFilter]: https://www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/
