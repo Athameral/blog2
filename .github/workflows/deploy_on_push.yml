@@ -30,6 +30,10 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         run: npm install
+      - name: Install pandoc
+        run: |
+          sudo apt update
+          sudo apt install pandoc
       - name: Build
         run: npm run build
       - name: Upload Pages artifact
