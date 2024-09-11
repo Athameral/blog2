@@ -2,6 +2,8 @@
 title: 使用服务器上的GUI应用：X11 Forwarding
 date: 2024-09-07 16:34:51
 tags: [SSH, X11]
+
+description: 如何安装X Server和SSH Client
 ---
 
 # 使用服务器上的GUI应用：X11 Forwarding
@@ -83,4 +85,4 @@ tags: [SSH, X11]
 
 在远程主机上执行`xcalc`，如果一切顺利，你的桌面应该会弹出一个类似这样的窗口：
 
-![运行在远程主机的GUI应用](./ssh-x11-forwarding/x11forwardgui.png)
+![运行在远程主机的GUI应用](x11forwardgui.png)

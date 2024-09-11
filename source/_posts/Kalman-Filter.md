@@ -2,6 +2,7 @@
 title: 卡尔曼滤波
 date: 2024-09-07 16:30:13
 tags: [自动控制原理, 现代控制理论]
+description: 本文讲解了卡尔曼滤波的基本原理和直观理解。
 
 mathjax: true
 ---
